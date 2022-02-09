@@ -93,7 +93,7 @@ public class VoodoDemoGUI: MonoBehaviour
         
         countButtons = 0;
 
-        /////////////////////////////////////////вторая колонка*********************
+        /////////////////////////////////////////втор? колонк?********************
         if (GUI.Button(new Rect(10 * dpiScale + 150, 15 * dpiScale + 15 + 30 * ++countButtons, 135 * dpiScale, 22 * dpiScale), "Hit_from_back"))
         {
             anim.SetBool("Hit_from_back", true);
