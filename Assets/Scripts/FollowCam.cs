@@ -30,19 +30,19 @@ public class FollowCam : MonoBehaviour
         tr.position = target.position - (rot * Vector3.forward * dist)
             + (Vector3.up * height);
 
-        RotateCam();
+        RotateCamX();
         
     }
 
-    void RotateCam()
+    void RotateCamX()
     {
-        float yRotateSize = Input.GetAxis("Mouse X") * turnSpeed;
-        float yRotate = transform.eulerAngles.y + yRotateSize;
+        //float yRotateSize = Input.GetAxis("Mouse X") * turnSpeed;
+        //float yRotate = transform.eulerAngles.y + yRotateSize;
 
         float xRotateSize = -Input.GetAxis("Mouse Y") * turnSpeed;
         
         xRotate = Mathf.Clamp(xRotate + xRotateSize, -45, 80);
 
-        transform.eulerAngles = new Vector3(xRotate, yRotate, 0);
+        transform.eulerAngles = new Vector3(xRotate, target.transform.eulerAngles.y, 0);
     }
 }
