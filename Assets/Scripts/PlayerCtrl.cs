@@ -7,7 +7,7 @@ public class PlayerCtrl : MonoBehaviour
     private Transform tr;
     private Rigidbody rb;
 
-    BoxCollider col;
+    CapsuleCollider col;
 
     public float moveSpeed = 2f;
     public float rotSpeed = 2f;
@@ -22,7 +22,7 @@ public class PlayerCtrl : MonoBehaviour
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
 
-        col = GetComponent<BoxCollider>();
+        col = GetComponent<CapsuleCollider>();
     }
 
     private void Update()
