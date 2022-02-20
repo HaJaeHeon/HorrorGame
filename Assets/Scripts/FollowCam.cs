@@ -4,45 +4,74 @@ using UnityEngine;
 
 public class FollowCam : MonoBehaviour
 {
-    public Transform target;
-    public float dist = 10.0f;
-    public float height = 5.0f;
-    public float smoothRotate = 5f;
+    //public Transform target;
+    //public float dist = 10.0f;
+    //public float height = 5.0f;
+    //public float smoothRotate = 5f;
 
-    public float turnSpeed = 4f;
+    //public float turnSpeed = 4f;
 
-    private float xRotate = 0f;
+    //private float xRotate = 0f;
 
-    private Transform tr;
+    //private Transform tr;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    tr = GetComponent<Transform>();
+    //}
+
+    //private void Update()
+    //{
+    //    float CurrYAngle = Mathf.LerpAngle(tr.eulerAngles.y, target.eulerAngles.y,
+    //        smoothRotate * Time.deltaTime);
+
+    //    Quaternion rot = Quaternion.Euler(0, CurrYAngle, 0);
+
+    //    tr.position = target.position - (rot * Vector3.forward * dist)
+    //        + (Vector3.up * height);
+
+    //    RotateCamX();
+
+    //}
+
+    //void RotateCamX()
+    //{
+    //    //float yRotateSize = Input.GetAxis("Mouse X") * turnSpeed;
+    //    //float yRotate = transform.eulerAngles.y + yRotateSize;
+
+    //    float xRotateSize = -Input.GetAxis("Mouse Y") * turnSpeed;
+
+    //    xRotate = Mathf.Clamp(xRotate + xRotateSize, -45, 80);
+
+    //    transform.eulerAngles = new Vector3(xRotate, target.transform.eulerAngles.y, 0);
+    //}
+    [SerializeField]
+    private float rotateSpeedX = 3;
+    [SerializeField]
+    private float rotateSpeedY = 5;
+    [SerializeField]
+    private float limitMinX = -80;
+    [SerializeField]
+    private float limitMaxX = 50;
+    private float eulerAngleX;
+    private float eulerAngleY;
+
+    public void RotateTo(float mouseX, float mouseY)
     {
-        tr = GetComponent<Transform>();
+        eulerAngleY += mouseX * rotateSpeedX;
+
+        eulerAngleX -= mouseY * rotateSpeedY;
+
+        eulerAngleX = ClampAngle(eulerAngleX, limitMinX, limitMaxX);
+
+        transform.rotation = Quaternion.Euler(eulerAngleX, eulerAngleY, 0);
     }
 
-    private void Update()
+    private float ClampAngle(float angle, float min, float max)
     {
-        float CurrYAngle = Mathf.LerpAngle(tr.eulerAngles.y, target.eulerAngles.y,
-            smoothRotate * Time.deltaTime);
+        if (angle < -360) angle += 360;
+        if (angle > 360) angle -= 360;
 
-        Quaternion rot = Quaternion.Euler(0, CurrYAngle, 0);
-
-        tr.position = target.position - (rot * Vector3.forward * dist)
-            + (Vector3.up * height);
-
-        RotateCamX();
-        
-    }
-
-    void RotateCamX()
-    {
-        //float yRotateSize = Input.GetAxis("Mouse X") * turnSpeed;
-        //float yRotate = transform.eulerAngles.y + yRotateSize;
-
-        float xRotateSize = -Input.GetAxis("Mouse Y") * turnSpeed;
-        
-        xRotate = Mathf.Clamp(xRotate + xRotateSize, -45, 80);
-
-        transform.eulerAngles = new Vector3(xRotate, target.transform.eulerAngles.y, 0);
+        return Mathf.Clamp(angle, min, max);
     }
 }
