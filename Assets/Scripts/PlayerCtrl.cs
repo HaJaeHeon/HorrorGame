@@ -12,6 +12,7 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField]
     private Transform camTr;
     CharacterController characterController;
+    Animator ani;
 
     public float moveSpeed = 5f;
     private float gravity = -9.81f;
@@ -32,7 +33,7 @@ public class PlayerCtrl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         characterController = GetComponent<CharacterController>();
-
+        ani = GetComponent<Animator>();
         cameraCtrl = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<FollowCam>();
     }
 
@@ -76,14 +77,17 @@ public class PlayerCtrl : MonoBehaviour
         rb.MovePosition(tr.position + velocity * Time.deltaTime);*/
 
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-
+        if (h != 0 || v !=0)
+        {
+            ani.SetBool("Walk_Forward", true);
+        }
     }
 
     public void MoveTo(Vector3 direction)
     {
         //moveDirection = new Vector3(direction.x, moveDirection.y, direction.z);
         Vector3 moveDis = camTr.rotation * direction;
-        moveDirection = new Vector3(moveDis.x, moveDirection.y, moveDis.z);
+        moveDirection = new Vector3(moveDis.x, moveDirection.y, moveDis.z).normalized;
     }
 
     //void RotateCamY()
@@ -102,8 +106,10 @@ public class PlayerCtrl : MonoBehaviour
     void RotateCam()
     {
         float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        //float mouseY = Input.GetAxis("Mouse Y");
 
-        cameraCtrl.RotateTo(mouseX, mouseY);
+        //cameraCtrl.RotateTo(/*mouseX,*/mouseY);
+
+        transform.Rotate(0, mouseX, 0);
     }
 }

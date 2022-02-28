@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowCam : MonoBehaviour
 {
-    //public Transform target;
+    public Transform target;
     //public float dist = 10.0f;
     //public float height = 5.0f;
     //public float smoothRotate = 5f;
@@ -45,33 +45,54 @@ public class FollowCam : MonoBehaviour
 
     //    transform.eulerAngles = new Vector3(xRotate, target.transform.eulerAngles.y, 0);
     //}
-    [SerializeField]
-    private float rotateSpeedX = 3;
-    [SerializeField]
-    private float rotateSpeedY = 5;
-    [SerializeField]
-    private float limitMinX = -80;
-    [SerializeField]
-    private float limitMaxX = 50;
-    private float eulerAngleX;
-    private float eulerAngleY;
+    //[SerializeField]
+    //private float rotateSpeedX = 3;
+    //[SerializeField]
+    //private float rotateSpeedY = 5;
+    //[SerializeField]
+    //private float limitMinX = -80;
+    //[SerializeField]
+    //private float limitMaxX = 50;
+    //private float eulerAngleX;
+    //private float eulerAngleY;
 
-    public void RotateTo(float mouseX, float mouseY)
+    //public void RotateTo(/*float mouseX,*/ float mouseY)
+    //{
+    //    //eulerAngleY += mouseX * rotateSpeedX;
+
+    //    eulerAngleX -= mouseY * rotateSpeedY;
+
+    //    eulerAngleX = ClampAngle(eulerAngleX, limitMinX, limitMaxX);
+
+    //    transform.rotation = Quaternion.Euler(eulerAngleX, /*eulerAngleY,*/ 0, 0);
+    //}
+
+    //private float ClampAngle(float angle, float min, float max)
+    //{
+    //    if (angle < -360) angle += 360;
+    //    if (angle > 360) angle -= 360;
+
+    //    return Mathf.Clamp(angle, min, max);
+    //}
+    public float camYsen = 2f;
+
+    public float yMinLimit = -45f;
+    public float yMaxLimit = 45f;
+
+    private float currentCameraRotationY = 0f;
+
+    private void Update()
     {
-        eulerAngleY += mouseX * rotateSpeedX;
 
-        eulerAngleX -= mouseY * rotateSpeedY;
+        float YRotation = Input.GetAxisRaw("Mouse Y");
+        float cameraRotationY = YRotation * camYsen;
+        currentCameraRotationY += cameraRotationY;
 
-        eulerAngleX = ClampAngle(eulerAngleX, limitMinX, limitMaxX);
+        currentCameraRotationY = Mathf.Clamp(currentCameraRotationY, -45f, 45f);
 
-        transform.rotation = Quaternion.Euler(eulerAngleX, eulerAngleY, 0);
-    }
-
-    private float ClampAngle(float angle, float min, float max)
-    {
-        if (angle < -360) angle += 360;
-        if (angle > 360) angle -= 360;
-
-        return Mathf.Clamp(angle, min, max);
+        transform.localEulerAngles = new Vector3(-currentCameraRotationY, 0f, 0f);
+        
+        
+        
     }
 }
