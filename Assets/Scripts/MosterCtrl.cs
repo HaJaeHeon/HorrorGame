@@ -39,14 +39,14 @@ public class MosterCtrl : MonoBehaviour
         }
         else
             return;
-        ani.SetTrigger("Walk_forward");
+        ani.SetBool("Walk_Forward", true);
     }
 
     private void Update()
     {
-        MoveWayPoint();
         RotateMonster();
         AroundTarget();
+        Debug.Log(nextIdx);
     }
 
     void MoveWayPoint()
@@ -78,14 +78,14 @@ public class MosterCtrl : MonoBehaviour
             isTrace = true;
             monsterSpeed = 3f;
             TraceTarget();
+            ani.SetBool("Run_Forward", false);
         }
         else if (distance >= 5f)
         {
             isTrace = false;
             monsterSpeed = 2f;
-            ani.SetBool("isTrace", false);
+            ani.SetBool("Walk_Forward", true);
             MoveWayPoint();
-
         }
 
     }
@@ -101,13 +101,13 @@ public class MosterCtrl : MonoBehaviour
                 nextIdx += 1;
         }
         nav.destination = wayPoints[nextIdx].position;
-        ani.SetTrigger("Walk_forward");
+        ani.SetBool("Walk_Forward" ,true);
     }
 
     void EndTrace()
     {
         isTrace = false;
-        ani.SetBool("isTrace", false);
+        ani.SetBool("Walk_Forward", false);
 
         float remainDis;
         float temp;
@@ -136,12 +136,12 @@ public class MosterCtrl : MonoBehaviour
                 Vector3 cen = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
                 Debug.DrawRay(cen, transform.forward, Color.green, 2f);
                 nav.isStopped = true;
-                ani.SetBool("isAttack", true);
+                ani.SetTrigger("Attack1");
             }
             else if (nav.remainingDistance >= 1f && nav.remainingDistance < 5f)
             {
                 nav.isStopped = false;
-                ani.SetBool("isAttack", false);
+                //ani.SetBool("isAttack", false);
             }
             else if (nav.remainingDistance >= 5f)
             {

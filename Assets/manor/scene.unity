@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485354, guid: 92c6bf4c0bc47524980ecbbcf99f8ec5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.42
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 485354, guid: 92c6bf4c0bc47524980ecbbcf99f8ec5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -562,7 +562,8 @@ PrefabInstance:
       propertyPath: superSize
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7233556710976519287, guid: 92c6bf4c0bc47524980ecbbcf99f8ec5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 92c6bf4c0bc47524980ecbbcf99f8ec5, type: 3}
 --- !u!4 &62572347 stripped
 Transform:
@@ -3260,10 +3261,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47aca286fd8a474488d79581422a6925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeedX: 3
-  rotateSpeedY: 5
-  limitMinX: -80
-  limitMaxX: 50
+  target: {fileID: 543541496}
+  camYsen: 2
+  yMinLimit: -45
+  yMaxLimit: 45
 --- !u!4 &325302481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d939bd4245a42a14081971f8e954e4e8, type: 3}
@@ -15576,6 +15577,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95000010510844164, guid: 39ff8419f28b57e469e0105f3a25a100, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8f2b08f140d45f445a02078acccdaa55, type: 2}
     - target: {fileID: 198000010921158050, guid: 39ff8419f28b57e469e0105f3a25a100, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
       value: 3
