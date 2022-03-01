@@ -78,12 +78,14 @@ public class MosterCtrl : MonoBehaviour
             isTrace = true;
             monsterSpeed = 3f;
             TraceTarget();
-            ani.SetBool("Run_Forward", false);
+            ani.SetBool("Walk_Forward", false);
+            ani.SetBool("Run_Forward", true);
         }
         else if (distance >= 5f)
         {
             isTrace = false;
             monsterSpeed = 2f;
+            ani.SetBool("Run_Forward", false);
             ani.SetBool("Walk_Forward", true);
             MoveWayPoint();
         }
@@ -108,6 +110,7 @@ public class MosterCtrl : MonoBehaviour
     {
         isTrace = false;
         ani.SetBool("Walk_Forward", false);
+        ani.SetBool("Run_Forward", true);
 
         float remainDis;
         float temp;
@@ -127,7 +130,8 @@ public class MosterCtrl : MonoBehaviour
     void TraceTarget()
     {
         distance = Vector3.Distance(transform.position, target.position);
-        ani.SetBool("isTrace", true);
+        //ani.SetBool("Walk_Forward", false);
+        //ani.SetBool("Run_Forward", true);
         nav.destination = target.position;
         if (distance < 5f)
         {

@@ -77,10 +77,11 @@ public class PlayerCtrl : MonoBehaviour
         rb.MovePosition(tr.position + velocity * Time.deltaTime);*/
 
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-        if (h != 0 || v !=0)
-        {
-            ani.SetBool("Walk_Forward", true);
-        }
+
+        if (h != 0 || v !=0)        
+            ani.SetBool("Walk_Forward", true);        
+        else if (h == 0 && v == 0)
+            ani.SetBool("Walk_Forward", false);
     }
 
     public void MoveTo(Vector3 direction)
