@@ -14,7 +14,7 @@ public class PlayerCtrl : MonoBehaviour
     CharacterController characterController;
     Animator ani;
 
-    public float moveSpeed = 5f;
+    public float moveSpeed = 7.5f;
     private float gravity = -9.81f;
     private Vector3 moveDirection;
 
@@ -111,6 +111,6 @@ public class PlayerCtrl : MonoBehaviour
 
         //cameraCtrl.RotateTo(/*mouseX,*/mouseY);
 
-        transform.Rotate(0, mouseX, 0);
+        transform.Rotate(0, mouseX * cameraCtrl.camSensitivity, 0);
     }
 }

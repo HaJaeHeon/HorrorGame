@@ -110,7 +110,7 @@ public class MosterCtrl : MonoBehaviour
     {
         isTrace = false;
         ani.SetBool("Walk_Forward", false);
-        ani.SetBool("Run_Forward", true);
+        //ani.SetBool("Run_Forward", true);
 
         float remainDis;
         float temp;

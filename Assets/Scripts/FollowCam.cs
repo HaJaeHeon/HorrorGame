@@ -74,7 +74,7 @@ public class FollowCam : MonoBehaviour
 
     //    return Mathf.Clamp(angle, min, max);
     //}
-    public float camYsen = 2f;
+    public float camSensitivity = 2f;
 
     public float yMinLimit = -45f;
     public float yMaxLimit = 45f;
@@ -85,7 +85,7 @@ public class FollowCam : MonoBehaviour
     {
 
         float YRotation = Input.GetAxisRaw("Mouse Y");
-        float cameraRotationY = YRotation * camYsen;
+        float cameraRotationY = YRotation * camSensitivity;
         currentCameraRotationY += cameraRotationY;
 
         currentCameraRotationY = Mathf.Clamp(currentCameraRotationY, -45f, 45f);
