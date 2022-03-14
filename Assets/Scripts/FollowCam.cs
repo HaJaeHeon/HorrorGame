@@ -91,8 +91,11 @@ public class FollowCam : MonoBehaviour
         currentCameraRotationY = Mathf.Clamp(currentCameraRotationY, -45f, 45f);
 
         transform.localEulerAngles = new Vector3(-currentCameraRotationY, 0f, 0f);
-        
-        
+
+        //Camera camera = GetComponent<Camera>();
+        //float[] distances = new float[32]; 32개 레이어 설정
+        //distances[10] = 15;               레이어들중 10번 레이어 값을 설정한다. >> 설정한 값 15보다 가까운 거리에서만 렌더링
+        //camera.layerCullDistances = distances;  카메라의 layerCullDistances를 설정 
         
     }
 }

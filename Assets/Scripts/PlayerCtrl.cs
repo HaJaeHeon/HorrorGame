@@ -14,6 +14,8 @@ public class PlayerCtrl : MonoBehaviour
     CharacterController characterController;
     Animator ani;
 
+    public AudioClip clip;
+
     public float moveSpeed = 7.5f;
     private float gravity = -9.81f;
     private Vector3 moveDirection;
@@ -78,8 +80,12 @@ public class PlayerCtrl : MonoBehaviour
 
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
 
-        if (h != 0 || v !=0)        
-            ani.SetBool("Walk_Forward", true);        
+        if (h != 0 || v != 0)
+        {
+            ani.SetBool("Walk_Forward", true);
+
+            //SoundManager.instance.SFXPlay("Walk", clip); // °È´Â »ç¿îµå
+        }
         else if (h == 0 && v == 0)
             ani.SetBool("Walk_Forward", false);
     }
@@ -113,4 +119,5 @@ public class PlayerCtrl : MonoBehaviour
 
         transform.Rotate(0, mouseX * cameraCtrl.camSensitivity, 0);
     }
+
 }
