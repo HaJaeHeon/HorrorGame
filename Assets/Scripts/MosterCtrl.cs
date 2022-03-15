@@ -10,6 +10,7 @@ public class MosterCtrl : MonoBehaviour
     private NavMeshAgent nav;
     public Transform target;
     Animator ani;
+    public TimelineControl timelineCtrl;
 
     float monsterSpeed = 2f;
     float damping = 2f;
@@ -28,6 +29,7 @@ public class MosterCtrl : MonoBehaviour
         nav = gameObject.GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("Player").transform;
         ani = gameObject.GetComponent<Animator>();
+        
         nav.autoBraking = false;
         nav.updateRotation = false;
         nav.speed = monsterSpeed;
@@ -163,6 +165,7 @@ public class MosterCtrl : MonoBehaviour
                 nav.isStopped = true;
                 ani.SetBool("Attack1", true);
                 //Debug.Log("9");
+                timelineCtrl.SendMessage("PlayerKill");
             }
             else if (nav.remainingDistance >= 1f && nav.remainingDistance < 5f)
             {
