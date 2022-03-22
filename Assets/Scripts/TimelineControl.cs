@@ -22,7 +22,7 @@ public class TimelineControl : MonoBehaviour
     private void PlayerKill()
     {
         Debug.Log("PlayerKill");
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         playableDirector.gameObject.SetActive(true);
         playableDirector.Play();
     }
