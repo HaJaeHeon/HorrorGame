@@ -5,6 +5,8 @@ using UnityEngine;
 public class FollowCam : MonoBehaviour
 {
     public Transform target;
+
+
     //public float dist = 10.0f;
     //public float height = 5.0f;
     //public float smoothRotate = 5f;
@@ -97,5 +99,5 @@ public class FollowCam : MonoBehaviour
         //distances[10] = 15;               레이어들중 10번 레이어 값을 설정한다. >> 설정한 값 15보다 가까운 거리에서만 렌더링
         //camera.layerCullDistances = distances;  카메라의 layerCullDistances를 설정 
         
-    }
+    }   
 }

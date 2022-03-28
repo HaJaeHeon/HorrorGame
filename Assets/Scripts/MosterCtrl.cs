@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 
 public class MosterCtrl : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class MosterCtrl : MonoBehaviour
     private NavMeshAgent nav;
     public Transform target;
     Animator ani;
-    public TimelineControl timelineCtrl;
+    //public TimelineControl timelineCtrl;
+    public PlayableDirector playableDirector;
+    public Camera cam;
 
     float monsterSpeed = 2f;
     float damping = 2f;
@@ -29,6 +32,7 @@ public class MosterCtrl : MonoBehaviour
         nav = gameObject.GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("Player").transform;
         ani = gameObject.GetComponent<Animator>();
+        cam = target.GetComponentInChildren<Camera>();
         
         nav.autoBraking = false;
         nav.updateRotation = false;
@@ -163,14 +167,20 @@ public class MosterCtrl : MonoBehaviour
                 Vector3 cen = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
                 Debug.DrawRay(cen, transform.forward, Color.green, 2f);
                 nav.isStopped = true;
+                nav.speed = 0f;
+                transform.LookAt(target);
                 ani.SetBool("Attack1", true);
                 //Debug.Log("9");
-                timelineCtrl.SendMessage("PlayerKill");
+                target.transform.LookAt(transform);
+                playableDirector.gameObject.SetActive(true);
+                playableDirector.Play();
+                //playableDirector.gameObject.SetActive(false);
+                //timelineCtrl.SendMessage("PlayerKill");
             }
             else if (nav.remainingDistance >= 1f && nav.remainingDistance < 5f)
             {
                 nav.isStopped = false;
-                ani.SetBool("Attack1", false);
+                //ani.SetBool("Attack1", false);
                 //Debug.Log("10");
             }
             //else if (nav.remainingDistance >= 5f)

@@ -1731,7 +1731,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.4811321, g: 0.20668353, b: 0.16567284, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1771,13 +1771,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182030249}
-  m_LocalRotation: {x: 0, y: 0.84240556, z: -0, w: -0.53884405}
-  m_LocalPosition: {x: 43.35, y: 8, z: 30.04}
+  m_LocalRotation: {x: 0, y: 0.78377485, z: -0, w: -0.6210451}
+  m_LocalPosition: {x: 35.47, y: 10.95, z: 11.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 245.21, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 256.785, z: 0}
 --- !u!114 &182030253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1793,10 +1793,10 @@ MonoBehaviour:
   volumeTrigger: {fileID: 182030252}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
@@ -1832,7 +1832,7 @@ MonoBehaviour:
       colorBlindnessType: 0
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
+  m_ShowToolkit: 1
   m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
@@ -1851,7 +1851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualizeFocus: 0
-  focalLength: 65.47
+  focalLength: 63.5
   focalSize: 2
   aperture: 11.5
   focalTransform: {fileID: 0}
@@ -1881,7 +1881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  intensity: 0.375
+  intensity: 3.72
   chromaticAberration: 0.2
   axialAberration: 0.5
   blur: 0
@@ -5259,7 +5259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sharedProfile: {fileID: 0}
   isGlobal: 0
-  blendDistance: 0
+  blendDistance: 85.52
   weight: 1
   priority: 0
 --- !u!65 &537479769
@@ -5283,7 +5283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537479767}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -97.3, y: 0, z: -52.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8942,7 +8942,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932073721}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -117.2, y: 34, z: -26}
+  m_LocalPosition: {x: -26.11, y: 36.23, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -19582,7 +19582,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083193506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -117.2, y: 34, z: -112}
+  m_LocalPosition: {x: -9.8, y: 15.2, z: -52.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
