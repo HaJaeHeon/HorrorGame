@@ -14,6 +14,7 @@ public class MosterCtrl : MonoBehaviour
     //public TimelineControl timelineCtrl;
     public PlayableDirector playableDirector;
     public Camera cam;
+    public GameObject targetLight;
 
     float monsterSpeed = 2f;
     float damping = 2f;
@@ -169,7 +170,8 @@ public class MosterCtrl : MonoBehaviour
                 nav.isStopped = true;
                 nav.speed = 0f;
                 transform.LookAt(target);
-                ani.SetBool("Attack1", true);
+                targetLight.SetActive(false);
+                //ani.SetBool("Attack1", true);
                 //Debug.Log("9");
                 target.transform.LookAt(transform);
                 playableDirector.gameObject.SetActive(true);
