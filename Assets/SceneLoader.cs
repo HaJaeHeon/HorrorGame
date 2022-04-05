@@ -104,7 +104,7 @@ public class SceneLoader : MonoBehaviour
         while (timer <= 1f)
         {
             yield return null;
-            timer += Time.unscaledDeltaTime /* *2f */;
+            timer += Time.unscaledDeltaTime * 0.5f;/* *2f */;
             SceneLoaderCanvasGroup.alpha = Mathf.Lerp(isFadeIn ? 0 : 1, isFadeIn ? 1 : 0, timer);
         }
         if(!isFadeIn)
