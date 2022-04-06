@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+<<<<<<< HEAD
+=======
+using UnityEngine.UI;
+>>>>>>> asd
 
 public class TimelineControl : MonoBehaviour
 {
     public PlayableDirector playableDirector;
+<<<<<<< HEAD
     
     // Start is called before the first frame update
     void Start()
@@ -25,5 +30,16 @@ public class TimelineControl : MonoBehaviour
         Time.timeScale = 0f;
         playableDirector.gameObject.SetActive(true);
         playableDirector.Play();
+=======
+    public GameObject PDCanvas;
+    
+
+    public void PlayerKill()
+    {
+        Debug.Log("PlayerKill");
+        //Time.timeScale = 0f;
+        playableDirector.gameObject.SetActive(false);
+        PDCanvas.SetActive(true);
+>>>>>>> asd
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 
 public class MosterCtrl : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class MosterCtrl : MonoBehaviour
     private NavMeshAgent nav;
     public Transform target;
     Animator ani;
+    //public TimelineControl timelineCtrl;
+    public PlayableDirector playableDirector;
+    public Camera cam;
+    public GameObject targetLight;
 
     float monsterSpeed = 2f;
     float damping = 2f;
@@ -28,6 +33,8 @@ public class MosterCtrl : MonoBehaviour
         nav = gameObject.GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag("Player").transform;
         ani = gameObject.GetComponent<Animator>();
+        cam = target.GetComponentInChildren<Camera>();
+        
         nav.autoBraking = false;
         nav.updateRotation = false;
         nav.speed = monsterSpeed;
@@ -55,15 +62,19 @@ public class MosterCtrl : MonoBehaviour
         {
             nav.isStopped = false;
             nav.destination = wayPoints[nextIdx].position;
-
+            Debug.Log("patrol in");
             Patrol();
+            Debug.Log("patrol out");
         }
         if (isTrace)
+        {
             return;
+        }
     }
 
     void RotateMonster()
     {
+        //Debug.Log("3");
         Quaternion rot = Quaternion.LookRotation(nav.desiredVelocity);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * damping);
         if (rot == Quaternion.Euler(Vector3.zero))
@@ -80,6 +91,7 @@ public class MosterCtrl : MonoBehaviour
             TraceTarget();
             ani.SetBool("Walk_Forward", false);
             ani.SetBool("Run_Forward", true);
+            //Debug.Log("11");
         }
         else if (distance >= 5f)
         {
@@ -88,6 +100,7 @@ public class MosterCtrl : MonoBehaviour
             ani.SetBool("Run_Forward", false);
             ani.SetBool("Walk_Forward", true);
             MoveWayPoint();
+            //Debug.Log("5");
         }
 
     }
@@ -95,22 +108,34 @@ public class MosterCtrl : MonoBehaviour
 
     void Patrol()
     {
-        if (nav.remainingDistance < 2f)
+        
+        if (!isTrace)
         {
-            if (nextIdx + 1 >= wayPoints.Count)
-                nextIdx = 0;
+            nav.destination = wayPoints[nextIdx].position;
+            //Debug.Log("########################");
+            //Debug.Log(nav.remainingDistance);
+            //Debug.Log(nextIdx);
+            //Debug.Log("########################");
+            if (nav.remainingDistance <= 0.45f)
+            {
+                if (nextIdx + 1 >= wayPoints.Count)
+                    nextIdx = 0;
+                else
+                    nextIdx += 1;
+            }
             else
-                nextIdx += 1;
+                return;
+            
+            ani.SetBool("Walk_Forward", true);
+            //Debug.Log("6");
         }
-        nav.destination = wayPoints[nextIdx].position;
-        ani.SetBool("Walk_Forward" ,true);
     }
 
     void EndTrace()
     {
         isTrace = false;
         ani.SetBool("Walk_Forward", false);
-        ani.SetBool("Run_Forward", true);
+        //ani.SetBool("Run_Forward", true);
 
         float remainDis;
         float temp;
@@ -124,6 +149,7 @@ public class MosterCtrl : MonoBehaviour
             resultIdx = (remainDis < temp) ? i : i + 1;
         }
         nextIdx = resultIdx;
+        //Debug.Log("7");
         MoveWayPoint();
     }
 
@@ -135,26 +161,40 @@ public class MosterCtrl : MonoBehaviour
         nav.destination = target.position;
         if (distance < 5f)
         {
+            //Debug.Log("8");
             if (nav.remainingDistance < 1f)
             {
+                nav.isStopped = true;
                 Vector3 cen = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
                 Debug.DrawRay(cen, transform.forward, Color.green, 2f);
                 nav.isStopped = true;
-                ani.SetTrigger("Attack1");
+                nav.speed = 0f;
+                transform.LookAt(target);
+                targetLight.SetActive(false);
+                //ani.SetBool("Attack1", true);
+                //Debug.Log("9");
+                target.transform.LookAt(transform);
+                playableDirector.gameObject.SetActive(true);
+                playableDirector.Play();
+                //playableDirector.gameObject.SetActive(false);
+                //timelineCtrl.SendMessage("PlayerKill");
             }
             else if (nav.remainingDistance >= 1f && nav.remainingDistance < 5f)
             {
                 nav.isStopped = false;
-                //ani.SetBool("isAttack", false);
+                //ani.SetBool("Attack1", false);
+                //Debug.Log("10");
             }
-            else if (nav.remainingDistance >= 5f)
-            {
-                EndTrace();
-                monsterSpeed = 2f;
-            }
+            //else if (nav.remainingDistance >= 5f)
+            //{
+            //    EndTrace();
+            //    monsterSpeed = 2f;
+            //    Debug.Log("11");
+            //}
         }
         if (distance >= 5f)
         {
+            //Debug.Log("9");
             EndTrace();
             monsterSpeed = 2f;
         }

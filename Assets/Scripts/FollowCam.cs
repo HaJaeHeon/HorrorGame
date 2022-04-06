@@ -5,6 +5,8 @@ using UnityEngine;
 public class FollowCam : MonoBehaviour
 {
     public Transform target;
+
+
     //public float dist = 10.0f;
     //public float height = 5.0f;
     //public float smoothRotate = 5f;
@@ -74,7 +76,7 @@ public class FollowCam : MonoBehaviour
 
     //    return Mathf.Clamp(angle, min, max);
     //}
-    public float camYsen = 2f;
+    public float camSensitivity = 2f;
 
     public float yMinLimit = -45f;
     public float yMaxLimit = 45f;
@@ -85,14 +87,17 @@ public class FollowCam : MonoBehaviour
     {
 
         float YRotation = Input.GetAxisRaw("Mouse Y");
-        float cameraRotationY = YRotation * camYsen;
+        float cameraRotationY = YRotation * camSensitivity;
         currentCameraRotationY += cameraRotationY;
 
         currentCameraRotationY = Mathf.Clamp(currentCameraRotationY, -45f, 45f);
 
         transform.localEulerAngles = new Vector3(-currentCameraRotationY, 0f, 0f);
+
+        //Camera camera = GetComponent<Camera>();
+        //float[] distances = new float[32]; 32개 레이어 설정
+        //distances[10] = 15;               레이어들중 10번 레이어 값을 설정한다. >> 설정한 값 15보다 가까운 거리에서만 렌더링
+        //camera.layerCullDistances = distances;  카메라의 layerCullDistances를 설정 
         
-        
-        
-    }
+    }   
 }
