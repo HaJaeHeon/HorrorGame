@@ -5,16 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ButtonGameScene : MonoBehaviour
 {
-
-
     public void RestartButton()
     {
-        SceneLoader.Instance.LoadScene("GameScene");
+        SceneLoader.LoadScene("GameScene");
     }
 
     public void MainMenuButton()
     {
-        SceneLoader.Instance.LoadScene("AnotherStartScene");
+        SceneLoader.LoadScene("AnotherStartScene");
     }
-
 }

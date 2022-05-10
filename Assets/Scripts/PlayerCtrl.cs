@@ -13,6 +13,7 @@ public class PlayerCtrl : MonoBehaviour
     private Transform camTr;
     CharacterController characterController;
     Animator ani;
+    private SettingsManager settingMgr;
 
     public AudioClip clip;
 
@@ -33,6 +34,8 @@ public class PlayerCtrl : MonoBehaviour
     {
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+        settingMgr = GameObject.Find("SettingsMgr").gameObject.GetComponent<SettingsManager>();
+
 
         characterController = GetComponent<CharacterController>();
         ani = GetComponent<Animator>();
@@ -117,7 +120,7 @@ public class PlayerCtrl : MonoBehaviour
 
         //cameraCtrl.RotateTo(/*mouseX,*/mouseY);
 
-        transform.Rotate(0, mouseX * cameraCtrl.camSensitivity, 0);
+        transform.Rotate(0, mouseX * /*cameraCtrl.camSensitivity*/ settingMgr.MouseSensitivity, 0);
     }
 
 }
