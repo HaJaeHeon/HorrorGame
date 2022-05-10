@@ -6,6 +6,7 @@ public class FollowCam : MonoBehaviour
 {
     public Transform target;
 
+    public SettingsManager SettingsMgr;
 
     //public float dist = 10.0f;
     //public float height = 5.0f;
@@ -76,18 +77,23 @@ public class FollowCam : MonoBehaviour
 
     //    return Mathf.Clamp(angle, min, max);
     //}
-    public float camSensitivity = 2f;
+    //public float camSensitivity = 2f;
 
     public float yMinLimit = -45f;
     public float yMaxLimit = 45f;
 
     private float currentCameraRotationY = 0f;
 
+    private void Start()
+    {
+        SettingsMgr = GameObject.Find("SettingsMgr").gameObject.GetComponent<SettingsManager>();
+    }
+
     private void Update()
     {
 
         float YRotation = Input.GetAxisRaw("Mouse Y");
-        float cameraRotationY = YRotation * camSensitivity;
+        float cameraRotationY = YRotation * SettingsMgr.MouseSensitivity /*camSensitivity*/;
         currentCameraRotationY += cameraRotationY;
 
         currentCameraRotationY = Mathf.Clamp(currentCameraRotationY, -45f, 45f);

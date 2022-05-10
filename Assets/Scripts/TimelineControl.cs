@@ -38,8 +38,12 @@ public class TimelineControl : MonoBehaviour
     {
         Debug.Log("PlayerKill");
         //Time.timeScale = 0f;
-        playableDirector.gameObject.SetActive(false);
+        //playableDirector.gameObject.SetActive(false);
         PDCanvas.SetActive(true);
+<<<<<<< HEAD
+>>>>>>> asd
+=======
+        playableDirector.Pause();
 >>>>>>> asd
     }
 }

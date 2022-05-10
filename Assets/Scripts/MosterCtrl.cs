@@ -22,6 +22,7 @@ public class MosterCtrl : MonoBehaviour
     float distance;
 
     bool isTrace = false;
+    public bool playerDie = false;
 
     public float speed
     {
@@ -47,13 +48,14 @@ public class MosterCtrl : MonoBehaviour
         else
             return;
         ani.SetBool("Walk_Forward", true);
+
+        playerDie = false;
     }
 
     private void Update()
     {
         RotateMonster();
         AroundTarget();
-        Debug.Log(nextIdx);
     }
 
     void MoveWayPoint()
@@ -62,9 +64,7 @@ public class MosterCtrl : MonoBehaviour
         {
             nav.isStopped = false;
             nav.destination = wayPoints[nextIdx].position;
-            Debug.Log("patrol in");
             Patrol();
-            Debug.Log("patrol out");
         }
         if (isTrace)
         {
@@ -176,6 +176,8 @@ public class MosterCtrl : MonoBehaviour
                 target.transform.LookAt(transform);
                 playableDirector.gameObject.SetActive(true);
                 playableDirector.Play();
+
+                playerDie = true;
                 //playableDirector.gameObject.SetActive(false);
                 //timelineCtrl.SendMessage("PlayerKill");
             }
