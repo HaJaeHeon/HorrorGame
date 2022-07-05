@@ -24,6 +24,11 @@ public class MosterCtrl : MonoBehaviour
     bool isTrace = false;
     public bool playerDie = false;
 
+    [SerializeField]
+    private AudioSource source;
+    [SerializeField]
+    SettingsManager stMgr;
+
     public float speed
     {
         get { return nav.velocity.magnitude; }
@@ -50,6 +55,11 @@ public class MosterCtrl : MonoBehaviour
         ani.SetBool("Walk_Forward", true);
 
         playerDie = false;
+        stMgr = GameObject.Find("SettingsMgr").GetComponent<SettingsManager>();
+        source = gameObject.transform.GetComponent<AudioSource>();
+
+        source.volume = stMgr.Volumn;
+        source.Play();
     }
 
     private void Update()
@@ -84,6 +94,7 @@ public class MosterCtrl : MonoBehaviour
     void AroundTarget()
     {
         distance = Vector3.Distance(transform.position, target.position);
+        //distance = nav.remainingDistance;
         if (distance < 5f)
         {
             isTrace = true;
@@ -156,13 +167,17 @@ public class MosterCtrl : MonoBehaviour
     void TraceTarget()
     {
         distance = Vector3.Distance(transform.position, target.position);
+        //distance = nav.remainingDistance;
         //ani.SetBool("Walk_Forward", false);
         //ani.SetBool("Run_Forward", true);
         nav.destination = target.position;
+        Debug.Log(distance);
+        Debug.Log(nav.destination);
         if (distance < 5f)
         {
             //Debug.Log("8");
-            if (nav.remainingDistance < 1f)
+            //if (nav.remainingDistance < 1f)
+            if (distance < 1f)
             {
                 nav.isStopped = true;
                 Vector3 cen = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
@@ -181,7 +196,8 @@ public class MosterCtrl : MonoBehaviour
                 //playableDirector.gameObject.SetActive(false);
                 //timelineCtrl.SendMessage("PlayerKill");
             }
-            else if (nav.remainingDistance >= 1f && nav.remainingDistance < 5f)
+            //else if (nav.remainingDistance >= 1f && nav.remainingDistance < 5f)
+            else if(distance >= 1f && distance <5f)
             {
                 nav.isStopped = false;
                 //ani.SetBool("Attack1", false);

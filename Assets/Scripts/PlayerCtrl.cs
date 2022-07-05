@@ -18,7 +18,7 @@ public class PlayerCtrl : MonoBehaviour
     public AudioClip clip;
 
     public float moveSpeed = 7.5f;
-    private float gravity = -9.81f;
+    private float gravity = 9.81f;
     private Vector3 moveDirection;
 
 
@@ -64,7 +64,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         if(characterController.isGrounded == false)
         {
-            moveDirection.y += gravity * Time.deltaTime;
+            moveDirection.y -= gravity * 2f * Time.deltaTime;
         }
     }
 

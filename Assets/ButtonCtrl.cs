@@ -9,6 +9,7 @@ public class ButtonCtrl : MonoBehaviour
     public GameObject SettingsPanel;
     public GameObject UIPanel;
     public GameObject GameNamePanel;
+    public GameObject CreditPanel;
 
     [SerializeField]
     List<Resolution> resolutions = new List<Resolution>();
@@ -25,6 +26,15 @@ public class ButtonCtrl : MonoBehaviour
 
     public Button applyButton;
 
+    [SerializeField]
+    private Slider LightIntenSlider;
+    [SerializeField]
+    private Image LightImage;
+
+    [SerializeField]
+    private Slider VolumnSlider;
+
+
 
     private void Start()
     {
@@ -37,10 +47,22 @@ public class ButtonCtrl : MonoBehaviour
         applyButton = GameObject.Find("UICanvas").transform.Find("SettingPanel")
                 .transform.Find("SettingsApplyButton").GetComponent<Button>();
         settingMg = GameObject.Find("SettingsMgr").GetComponent<SettingsManager>();
+        VolumnSlider = GameObject.Find("UICanvas").transform.Find("SettingPanel")
+                .transform.Find("VolumnSlider").GetComponent<Slider>();
+
 
         fullscreenBtn.isOn = false;
 
+        LightIntenSlider = GameObject.Find("UICanvas").transform.Find("SettingPanel")
+                .transform.Find("LightSlider").GetComponent<Slider>();
+
+        LightImage = GameObject.Find("UICanvas")
+                .transform.Find("LightPanel").GetComponent<Image>();
+
         InitUI();
+        LightIntenSlider.onValueChanged.AddListener(ChangeLightIntensity);
+
+        VolumnSlider.onValueChanged.AddListener(ChangeVolumn);
     }
 
     private void Update()
@@ -143,5 +165,41 @@ public class ButtonCtrl : MonoBehaviour
         MouseSenSlider.value = mSen;
         //settingMg.SaveSen();
         PlayerPrefs.SetFloat("MouseSensitivity", mSen);
+    }
+
+    public void ChangeLightIntensity(float LI)
+    {
+
+        PlayerPrefs.GetFloat("LightIntensity", LI);
+        LightIntenSlider.minValue = 0f;
+        LightIntenSlider.maxValue = 125f;
+        LightIntenSlider.value = LI;
+        PlayerPrefs.SetFloat("LightIntensity", LI);
+        Color color = LightImage.color;
+        color.a  = (125-LI)/255;
+        LightImage.color = color;
+    }
+
+    public void ChangeVolumn(float Vo)
+    {
+        PlayerPrefs.GetFloat("Volumn", Vo);
+        VolumnSlider.minValue = 0f;
+        VolumnSlider.maxValue = 1f;
+        VolumnSlider.value = Vo;
+        PlayerPrefs.SetFloat("Volumn", Vo);
+    }
+
+    public void CreditStart()
+    {
+        CreditPanel.SetActive(true);
+        UIPanel.SetActive(false);
+        GameNamePanel.SetActive(false);
+    }
+
+    public void CreditExit()
+    {
+        CreditPanel.SetActive(false);
+        UIPanel.SetActive(true);
+        GameNamePanel.SetActive(true);
     }
 }

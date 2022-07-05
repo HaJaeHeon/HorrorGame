@@ -11,9 +11,11 @@ public class door : MonoBehaviour {
 	public bool trigger_B;
 	public bool reach;
 	public bool pause;
-	
 
-	public enum door_state
+	[SerializeField]
+	private DoorSound dSound;
+
+    public enum door_state
 		{
 		close,
 		opening_A,
@@ -28,10 +30,14 @@ public class door : MonoBehaviour {
 		pause_closing_B
 		}
 	public door_state door_actual_state = door_state.close;
-	
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Start()
+    {
+		dSound = gameObject.GetComponent<DoorSound>();
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 		switch(door_actual_state)
 			{
@@ -123,10 +129,12 @@ public class door : MonoBehaviour {
 	
 	void Open()
 		{
+		//dSound.DoorOpeningSound();
 		if (reach)
 			{
 			Unlink_door();
-
+			dSound.DoorOpeningSound();
+			//Debug.Log("11");
 			if (trigger_A)
 				{
 				Link_door_to_pivot(pivot_A);
@@ -143,8 +151,11 @@ public class door : MonoBehaviour {
 	
 	void Close()
 		{
+		//dSound.DoorClosingSound();
 		if (reach)
 			{
+			dSound.DoorClosingSound();
+			//Debug.Log("22");
 			if ( (door_actual_state == door_state.end_open_A) && (!trigger_B) )
 				{
 				door_actual_state = door_state.closing_A;

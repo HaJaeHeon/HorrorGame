@@ -8,10 +8,12 @@ public class ButtonGameScene : MonoBehaviour
     public void RestartButton()
     {
         SceneLoader.LoadScene("GameScene");
+        Time.timeScale = 1f;
     }
 
     public void MainMenuButton()
     {
         SceneLoader.LoadScene("AnotherStartScene");
+        Time.timeScale = 1f;
     }
 }

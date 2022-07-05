@@ -8,12 +8,17 @@ public class SettingsManager : MonoBehaviour
 {
     static public SettingsManager instance;
 
-    public float MouseSensitivity = 2f;
-    public float LightIntensity;
-    public float ListenSound;
+    public float MouseSensitivity/* = 2f*/;
+    public float LightIntensity/* = 50f*/;
+    public float Volumn/* = 0.500f*/;
 
     [SerializeField]
     private Slider MouseSenSlider;
+    [SerializeField]
+    private Slider LightIntenSlider;
+    [SerializeField]
+    private Slider VolumnSlider;
+
 
     #region singleton
     private void Awake()
@@ -21,7 +26,7 @@ public class SettingsManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(instance);
         }
 
         else
@@ -33,11 +38,6 @@ public class SettingsManager : MonoBehaviour
     private void Start()
     {
 
-
-        //InitUI();
-
-        
-
         if (!PlayerPrefs.HasKey("MouseSensitivity"))
         {
             PlayerPrefs.SetFloat("MouseSensitivity", 2f);
@@ -46,7 +46,22 @@ public class SettingsManager : MonoBehaviour
         else
             LoadSen();
 
-        
+        if (!PlayerPrefs.HasKey("LightIntensity"))
+        {
+            PlayerPrefs.SetFloat("LightIntensity", 50f);
+            LoadIntensity();
+        }
+        else
+            LoadIntensity();
+
+        if (!PlayerPrefs.HasKey("Volumn"))
+        {
+            PlayerPrefs.SetFloat("Volumn", 0.500f);
+            LoadVolumn();
+        }
+        else
+            LoadVolumn();
+
 
         //FindApplyButton();
         //FindSlider();
@@ -64,9 +79,11 @@ public class SettingsManager : MonoBehaviour
 
         //AnotherSetting();
         FindSlider();
+        FindIntenSlider();
+        FindVolumnSlider();
     }
 
-    
+
 
     public void LoadSen()
     {
@@ -80,6 +97,7 @@ public class SettingsManager : MonoBehaviour
         //PlayerPrefs.Save();
 
     }
+
 
     private void FindSlider()
     {
@@ -98,6 +116,70 @@ public class SettingsManager : MonoBehaviour
         }
         LoadSen();
     }
+
+
+    public void LoadIntensity()
+    {
+        LightIntensity = PlayerPrefs.GetFloat("LightIntensity");
+    }
+
+    public void SaveIntensity()
+    {
+        PlayerPrefs.SetFloat("LightIntensity", LightIntenSlider.value);
+    }
+
+    private void FindIntenSlider()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+        if (sceneName == "AnotherStartScene")
+        {
+            LightIntenSlider = GameObject.Find("UICanvas").transform.Find("SettingPanel")
+                .transform.Find("LightSlider").GetComponent<Slider>();
+        }
+        else if (sceneName == "GameScene")
+        {
+            LightIntenSlider = GameObject.Find("UICanvas")
+            .transform.Find("SettingPanel").transform.Find("LightSlider").GetComponent<Slider>();
+        }
+        LoadIntensity();
+    }
+
+
+    public void LoadVolumn()
+    {
+        Volumn = PlayerPrefs.GetFloat("Volumn");
+    }
+
+    public void SaveVolumn()
+    {
+        PlayerPrefs.SetFloat("Volumn", VolumnSlider.value);
+    }
+
+    private void FindVolumnSlider()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+        if (sceneName == "AnotherStartScene")
+        {
+            VolumnSlider = GameObject.Find("UICanvas").transform.Find("SettingPanel")
+                .transform.Find("VolumnSlider").GetComponent<Slider>();
+        }
+        else if (sceneName == "GameScene")
+        {
+            VolumnSlider = GameObject.Find("UICanvas")
+            .transform.Find("SettingPanel").transform.Find("VolumnSlider").GetComponent<Slider>();
+        }
+        LoadVolumn();
+    }
+
+
+
+
+
+
     //public void ChangeMouseSen(float mSen)
     //{
     //    //if (MouseSenSlider == null)

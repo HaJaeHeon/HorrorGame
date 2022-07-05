@@ -18,6 +18,9 @@ half3 _Curve;
 float _SampleScale;
 half _Intensity;
 
+sampler2D _DirtTex;
+half _DirtIntensity;
+
 // Brightness function
 half Brightness(half3 c)
 {
@@ -232,7 +235,12 @@ half4 frag_upsample_final(v2f_multitex i) : SV_Target
 #if UNITY_COLORSPACE_GAMMA
     base.rgb = GammaToLinearSpace(base.rgb);
 #endif
-    half3 cout = base.rgb + blur * _Intensity;
+    half3 bloom = blur * _Intensity;
+    half3 cout = base.rgb + bloom;
+#if DIRT_TEXTURE
+    half3 dirt = tex2D(_DirtTex, i.uvMain).rgb * _DirtIntensity;
+    cout += bloom * dirt;
+#endif
 #if UNITY_COLORSPACE_GAMMA
     cout = LinearToGammaSpace(cout);
 #endif
