@@ -6,4 +6,6 @@ tool : Unity / 2020.3.17f1
 
 플랫폼 : Window
 
-# 영상 및 자료
+#자료
+
+https://drive.google.com/drive/folders/1el6sk7JKl0brV_GOmAv1Ikia9TiTtM0f
